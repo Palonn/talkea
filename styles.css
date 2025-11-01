@@ -1,0 +1,158 @@
+/* Variables para colores */
+:root {
+    --primary-color: #1a73e8; /* Azul primario */
+    --secondary-color: #34a853; /* Verde de acento */
+    --background-color: #f4f6f9; /* Fondo muy claro */
+    --text-color: #333;
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* Estilos Generales */
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary-color);
+}
+
+/* Botones de Navegación */
+.btn-login, .btn-register {
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn-login {
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.btn-register {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+}
+
+.btn-register:hover {
+    background-color: #2b8e44;
+}
+
+/* Sección Principal (Hero) */
+.hero-section {
+    text-align: center;
+    padding: 80px 5%;
+    background: linear-gradient(135deg, var(--background-color), #ffffff);
+}
+
+.hero-section h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.hero-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Barra de Búsqueda */
+.search-container {
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 15px 20px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+.search-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #125aa3;
+}
+
+/* Sección de Cursos */
+.courses-section {
+    padding: 50px 5%;
+    text-align: center;
+}
+
+.courses-section h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.course-grid {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.course-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.course-card h3 {
+    color: var(--primary-color);
+    font-size: 20px;
+    margin-top: 0;
+}
+
+/* Pie de Página */
+.footer {
+    text-align: center;
+    padding: 20px 5%;
+    background-color: var(--primary-color);
+    color: white;
+    margin-top: 40px;
+}
