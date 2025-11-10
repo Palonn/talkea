@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TALKEA - Plataforma Educativa</title>
+    <style>
+        /* Estilos generales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2E86AB;
+            --secondary: #A23B72;
+            --accent: #F18F01;
+            --light: #F7F9FC;
+            --dark: #2B2D42;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Header */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #1a6a8f;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background-color: #7d2c57;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Formularios */
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        /* Páginas de contenido */
+        .page {
+            min-height: 80vh;
+            padding: 30px 0;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        /* Tarjetas de cursos */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .course-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--accent);
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            text-align: right;
+        }
+
+        /* Perfil */
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .profile-info {
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .info-label {
+            font-weight: 500;
+            min-width: 120px;
+        }
+
+        .info-value {
+            flex: 1;
+            color: var(--gray);
+        }
+
+        /* Detalle de curso */
+        .course-detail {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .course-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .action-card {
+            background-color: var(--light);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-card:hover {
+            background-color: var(--light-gray);
+        }
+
+        /* Foro */
+        .forum-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .forum-list {
+            margin: 20px 0;
+        }
+
+        .forum-item {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
+        }
+
+        .forum-item:hover {
+            background-color: var(--light);
+        }
+
+        /* Chat */
+        .chat-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .instructor-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .instructor-avatar {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Búsqueda */
+        .search-container {
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .search-results {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .form-buttons {
+                flex-direction: column;
+            }
+
+            .course-header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .info-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">TALKEA</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showPage('inicio')">INICIO</a></li>
+                    <li><a href="#" onclick="showPage('cursos')">MIS CURSOS</a></li>
+                    <li><a href="#" onclick="showPage('buscar')">BUSCAR</a></li>
+                    <li><a href="#" onclick="showPage('perfil')">MI PERFIL</a></li>
+                    <li><a href="#" onclick="showPage('login')">CERRAR SESIÓN</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Página de Bienvenida -->
+    <div id="bienvenida" class="page">
+        <div class="container">
+            <div class="form-container">
+                <h1 style="text-align: center; margin-bottom: 30px; color: var(--primary);">BIENVENIDO A TALKEA</h1>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <button class="btn btn-full" onclick="showPage('login')">INICIAR SESIÓN</button>
+                    <button class="btn btn-secondary btn-full" onclick="showPage('registro')">REGISTRARSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Login -->
+    <div id="login" class="page hidden">
+        <div class="container">
+            <div class="form-container">
+                <h1 class="page-title">INICIA SESIÓN</h1>
+                <div class="form-group">
+                    <label for="usuario">USUARIO:</label>
+                    <input type="text" id="usuario" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password">CONTRASEÑA:</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-full" onclick="showPage('cursos')">INICIAR SESIÓN</button>
+                    <button class="btn btn-secondary btn-full" onclick="showPage('registro')">REGISTRARSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Registro -->
+    <div id="registro" class="page hidden">
+        <div class="container">
+            <div class="form-container">
+                <h1 class="page-title">REGISTRARSE</h1>
+                <div class="form-group">
+                    <label for="nombre">NOMBRE/S:</label>
+                    <input type="text" id="nombre" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="apellido">APELLIDO/S:</label>
+                    <input type="text" id="apellido" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="correo">CORREO:</label>
+                    <input type="email" id="correo" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="telefono">TELÉFONO:</label>
+                    <input type="tel" id="telefono" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="curp">CURP:</label>
+                    <input type="text" id="curp" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password-registro">CONTRASEÑA:</label>
+                    <input type="password" id="password-registro" class="form-control">
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terminos" required>
+                    <label for="terminos">Acepto los términos y condiciones © TALKEA</label>
+                </div>
+                <div class="form-buttons">
+                    <button class="btn btn-full" onclick="showPage('cursos')">REGISTRARSE</button>
+                    <button class="btn btn-secondary btn-full" onclick="showPage('login')">INICIAR SESIÓN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Mis Cursos -->
+    <div id="cursos" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">MIS CURSOS</h1>
+
+            <div class="courses-grid">
+                <div class="course-card" onclick="showCourseDetail('primeros-auxilios')">
+                    <div class="course-title">PRIMEROS AUXILIOS</div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%;"></div>
+                    </div>
+                    <div class="progress-text">Progreso: 90%</div>
+                </div>
+
+                <div class="course-card" onclick="showCourseDetail('finanzas')">
+                    <div class="course-title">FINANZAS BÁSICAS</div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 45%;"></div>
+                    </div>
+                    <div class="progress-text">Progreso: 45%</div>
+                </div>
+
+                <div class="course-card" onclick="showCourseDetail('desarrollo-web')">
+                    <div class="course-title">DESARROLLO WEB</div>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 20%;"></div>
+                    </div>
+                    <div class="progress-text">Progreso: 20%</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h2 style="color: var(--primary); margin-bottom: 20px;">NUESTRAS RECOMENDACIONES</h2>
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <div class="course-title">ENFERMERÍA BÁSICA</div>
+                        <div style="margin-top: 15px; color: var(--gray);">Aprende cuidados básicos de enfermería</div>
+                    </div>
+                    <div class="course-card">
+                        <div class="course-title">NUTRICIÓN</div>
+                        <div style="margin-top: 15px; color: var(--gray);">Alimentación saludable con bajo presupuesto</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Búsqueda -->
+    <div id="buscar" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">BUSCAR CURSOS</h1>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="¿Qué quieres aprender?">
+                    <button class="btn">BUSCAR</button>
+                </div>
+
+                <div class="search-results">
+                    <h3 style="margin-bottom: 15px; color: var(--primary);">LO QUE BUSCAS:</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="course-card" style="cursor: pointer;" onclick="showCourseDetail('primeros-auxilios')">
+                            <div class="course-title">PRIMEROS AUXILIOS</div>
+                        </div>
+                        <div class="course-card" style="cursor: pointer;">
+                            <div class="course-title">ENFERMERÍA BÁSICA</div>
+                        </div>
+                        <div class="course-card" style="cursor: pointer;">
+                            <div class="course-title">CUIDADOS BÁSICOS</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Perfil -->
+    <div id="perfil" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">MI PERFIL</h1>
+
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar">M</div>
+                    <h2>MARIA GUADALUPE HUERTA</h2>
+                    <p style="color: var(--gray);">Usuario: mariah</p>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-item">
+                        <span class="info-label">NOMBRE:</span>
+                        <span class="info-value">MARIA GUADALUPE HUERTA</span>
+                        <button class="btn btn-small">CAMBIAR</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">CORREO:</span>
+                        <span class="info-value">maria@correo.com</span>
+                        <button class="btn btn-small">CAMBIAR</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">TELÉFONO:</span>
+                        <span class="info-value">1234567890</span>
+                        <button class="btn btn-small">CAMBIAR</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">CURP:</span>
+                        <span class="info-value">HUMG850101MTSRRA0</span>
+                        <button class="btn btn-small">CAMBIAR</button>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">CONTRASEÑA:</span>
+                        <span class="info-value">••••••••</span>
+                        <button class="btn btn-small">CAMBIAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Detalle de Curso -->
+    <div id="curso-detalle" class="page hidden">
+        <div class="container">
+            <div class="course-detail">
+                <div class="course-header">
+                    <h1 class="page-title" style="margin: 0;">PRIMEROS AUXILIOS</h1>
+                    <div>
+                        <div class="progress-text">MI PROGRESO: 90%</div>
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 90%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 25px 0 15px; color: var(--primary);">TAREAS/CLASES:</h3>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px;">
+                    <div style="padding: 10px; background: var(--light); border-radius: 5px;">✓ Introducción a primeros auxilios</div>
+                    <div style="padding: 10px; background: var(--light); border-radius: 5px;">✓ RCP básico</div>
+                    <div style="padding: 10px; background: var(--light); border-radius: 5px;">✓ Heridas y hemorragias</div>
+                    <div style="padding: 10px; background: var(--light); border-radius: 5px;">◼ Quemaduras y fracturas</div>
+                </div>
+
+                <div class="course-actions">
+                    <div class="action-card" onclick="showPage('foro')">
+                        <h4>CREAR/UNIRME A FORO</h4>
+                    </div>
+                    <div class="action-card" onclick="showPage('chat')">
+                        <h4>CHAT EN VIVO</h4>
+                    </div>
+                    <div class="action-card">
+                        <h4>TALLERISTA</h4>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="color: var(--primary); margin: 30px 0 15px;">CURSOS SIMILARES</h2>
+            <div class="courses-grid">
+                <div class="course-card">
+                    <div class="course-title">ENFERMERÍA BÁSICA</div>
+                </div>
+                <div class="course-card">
+                    <div class="course-title">CUIDADOS BÁSICOS</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Foro -->
+    <div id="foro" class="page hidden">
+        <div class="container">
+            <div class="forum-container">
+                <h1 class="page-title">PRIMEROS AUXILIOS - FORO</h1>
+
+                <button class="btn" style="margin-bottom: 20px;">CREAR FORO</button>
+
+                <h3 style="margin: 25px 0 15px; color: var(--primary);">FOROS EXISTENTES:</h3>
+                <div class="forum-list">
+                    <div class="forum-item">
+                        <strong>¿Cómo actuar ante una quemadura?</strong>
+                        <div style="color: var(--gray); font-size: 0.9rem; margin-top: 5px;">15 respuestas • Última hoy</div>
+                    </div>
+                    <div class="forum-item">
+                        <strong>Material básico para botiquín</strong>
+                        <div style="color: var(--gray); font-size: 0.9rem; margin-top: 5px;">8 respuestas • Última ayer</div>
+                    </div>
+                    <div class="forum-item">
+                        <strong>RCP en niños vs adultos</strong>
+                        <div style="color: var(--gray); font-size: 0.9rem; margin-top: 5px;">12 respuestas • Última hace 2 días</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Página de Chat -->
+    <div id="chat" class="page hidden">
+        <div class="container">
+            <h1 class="page-title">PRIMEROS AUXILIOS</h1>
+
+            <div class="chat-container">
+                <div class="instructor-info">
+                    <div class="instructor-avatar">J</div>
+                    <div>
+                        <h3 style="color: var(--primary);">TALLERISTA</h3>
+                        <h2>JUAN GOMEZ</h2>
+                        <p style="color: var(--gray); margin-top: 5px;">
+                            • MÉDICO GENERAL<br>
+                            • 10 AÑOS DE EXPERIENCIA<br>
+                            • HOSPITAL REAL SAN JOSÉ
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background: var(--light); padding: 20px; border-radius: 10px; min-height: 200px; margin-bottom: 20px;">
+                    <h4 style="color: var(--primary); margin-bottom: 15px;">CHAT</h4>
+                    <div style="text-align: center; color: var(--gray); padding: 40px;">
+                        El chat estará disponible durante las sesiones en vivo
+                    </div>
+                </div>
+
+                <h3 style="color: var(--primary); margin: 25px 0 15px;">SUS CURSOS</h3>
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <div class="course-title">PRIMEROS AUXILIOS</div>
+                    </div>
+                    <div class="course-card">
+                        <div class="course-title">EMERGENCIAS MÉDICAS</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 TALKEA. Plataforma educativa comunitaria.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mostrar página de bienvenida por defecto
+        showPage('bienvenida');
+
+        function showPage(pageId) {
+            // Ocultar todas las páginas
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.add('hidden');
+            });
+
+            // Mostrar la página seleccionada
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+
+        function showCourseDetail(courseName) {
+            // Aquí podrías cargar información específica del curso
+            showPage('curso-detalle');
+        }
+    </script>
+</body>
+</html>
